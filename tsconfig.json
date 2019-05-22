@@ -10,9 +10,9 @@
   },
   "exclude": [
     "node_modules",
-    "build"
+    "build/*.*"
   ],
   "include": [
-    "src/*"
+    "src/**/*.*"
   ]
 }
