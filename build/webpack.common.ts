@@ -24,7 +24,7 @@ export const webpackConfig: Configuration = {
                 test: /.tsx?$/,
                 loader: [
                     {
-                        loader: "awesome-typescript-loader"
+                        loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"
                     }
                 ]
             }
