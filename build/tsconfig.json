@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "lib": [],
+    "lib": ["es6"],
     "sourceMap": true,
     "typeRoots": [
       "../node_modules/@types"

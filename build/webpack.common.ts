@@ -1,13 +1,15 @@
 import * as path from "path";
 import {Configuration} from "webpack";
+import * as HtmlWebpackPlugin from "html-webpack-plugin";
 
 export const webpackConfig: Configuration = {
     entry: {
-        main: path.resolve(__dirname, '../src/index')
+        main: [path.resolve(__dirname, '../src/index')]
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/'
     },
     // 模式
     mode: 'none',
@@ -29,5 +31,11 @@ export const webpackConfig: Configuration = {
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../index.html'),
+            filename: 'index.html'
+        })
+    ]
 };
