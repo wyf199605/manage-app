@@ -34,6 +34,9 @@ export const webpackConfig: Configuration = {
                 exclude: /node_modules/,
                 loader: [
                     {
+                        loader: "babel-loader"
+                    },
+                    {
                         loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"
                     }
                 ]
