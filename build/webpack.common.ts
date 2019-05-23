@@ -31,6 +31,7 @@ export const webpackConfig: Configuration = {
         rules: [
             {
                 test: /\.tsx?$/,
+                exclude: /node_modules/,
                 loader: [
                     {
                         loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"
@@ -44,5 +45,17 @@ export const webpackConfig: Configuration = {
             template: path.resolve(__dirname, '../index.html'),
             filename: 'index.html'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all',
+                    minChunks: 1
+                }
+            }
+        }
+    }
 };

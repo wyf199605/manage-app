@@ -8,7 +8,7 @@
     "moduleResolution": "node", // 模块解析策略node
     "experimentalDecorators": true, //是否开启装饰器
     "lib": ["es6", "dom"],
-    "types": [], // 默认不引入任何@types下的包
+    "types": ["webpack-env"], // 默认不引入任何@types下的包
     "typeRoots": [
       "./src/typings"
     ]
