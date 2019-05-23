@@ -1,5 +1,6 @@
 import webpackMerge = require("webpack-merge");
 import {webpackConfig} from "./webpack.common";
+import * as OpenBrowserWebpackPlugin from "open-browser-webpack-plugin";
 import {Configuration} from "webpack";
 
 export const webpackConfigDevelopment: Configuration = webpackMerge(webpackConfig, {
@@ -15,6 +16,12 @@ export const webpackConfigDevelopment: Configuration = webpackMerge(webpackConfi
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        // 自动打开浏览器
+        new OpenBrowserWebpackPlugin({
+            url: 'http://localhost:3001'
+        })
+    ]
 });
 
