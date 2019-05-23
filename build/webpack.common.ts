@@ -7,9 +7,16 @@ export const webpackConfig: Configuration = {
         main: [path.resolve(__dirname, '../src/index')]
     },
     output: {
-        filename: '[name].js',
+        filename: 'js/[name].[hash:8].js',
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/'
+    },
+    stats: {
+        colors: true,
+        modules: false,
+        children: false,
+        chunks: false,
+        chunkModules: false
     },
     // 模式
     mode: 'none',

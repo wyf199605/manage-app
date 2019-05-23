@@ -1,14 +1,14 @@
 import * as Koa from "koa";
 import * as koaWebpack from "koa-webpack";
 import * as webpack from "webpack";
-import {devConfig} from "./webpack.dev";
+import {webpackConfigDevelopment} from "./webpack.development";
 import * as path from "path";
 
 const bootstrap = async (): Promise<Koa> => {
 
     const app = new Koa();
 
-    const compiler = webpack(devConfig);
+    const compiler = webpack(webpackConfigDevelopment);
 
     let middleware = await koaWebpack({
         compiler: compiler,
@@ -26,7 +26,7 @@ const bootstrap = async (): Promise<Koa> => {
     app.use(middleware);
 
     // app.use(async (ctx) => {
-    //     const filename = path.resolve(devConfig.output.path, 'index.html');
+    //     const filename = path.resolve(webpackConfigDev.output.path, 'index.html');
     //     ctx.response.type = 'html';
     //     ctx.response.body = middleware.devMiddleware.fileSystem.createReadStream(filename)
     // });
