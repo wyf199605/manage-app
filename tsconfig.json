@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
-    "sourceMap": true,
-    "jsx": "react",
-    "outDir": "./dist/",
-    "moduleResolution": "node",
-    "types": [],
+    "module": "es6", // 模块导入规则es6
+    "target": "es6", // 生成es6代码
+    "sourceMap": true, // 是否开启sourceMap
+    "jsx": "react", // 使用react的jsx
+    "outDir": "./dist/", // 输出路径
+    "moduleResolution": "node", // 模块解析策略node
+    "experimentalDecorators": true, //是否开启装饰器
+    "types": [], // 默认不引入任何@types下的包
     "typeRoots": [
       "./src/typings"
     ]

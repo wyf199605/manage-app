@@ -20,7 +20,7 @@ export class TextInput extends React.Component<{}, IState>{
 
     render(){
         return <div>
-            <input type="text" value={this.state.value} onChange={this.changHandler}/>a
+            <input type="text" value={this.state.value} onChange={this.changHandler}/>
         </div>
     }
 }
