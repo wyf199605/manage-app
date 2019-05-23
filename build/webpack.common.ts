@@ -23,7 +23,7 @@ export const webpackConfig: Configuration = {
     module: {
         rules: [
             {
-                test: /.tsx?$/,
+                test: /\.tsx?$/,
                 loader: [
                     {
                         loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"

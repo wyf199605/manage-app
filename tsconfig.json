@@ -6,7 +6,10 @@
     "jsx": "react",
     "outDir": "./dist/",
     "moduleResolution": "node",
-    "types": []
+    "types": [],
+    "typeRoots": [
+      "./src/typings"
+    ]
   },
   "exclude": [
     "node_modules",
