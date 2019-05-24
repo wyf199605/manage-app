@@ -3,7 +3,9 @@ import {webpackConfig} from "./webpack.common";
 import CleanWebpackPlugin from "clean-webpack-plugin";
 import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
 import {Configuration} from "webpack";
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
+import * as TerserWebpackPlugin from 'terser-webpack-plugin';
+import * as OptimizeCssAssetsWebpackPlugin from 'optimize-css-assets-webpack-plugin';
 import * as path from "path";
 
 export const webpackConfigProduction: Configuration = webpackMerge(webpackConfig, {
@@ -34,6 +36,21 @@ export const webpackConfigProduction: Configuration = webpackMerge(webpackConfig
         new MiniCssExtractPlugin({
             filename: 'css/[name].[hash:8].css'
         })
-    ]
+    ],
+    optimization: {
+        minimizer: [
+            // 压缩JS
+            new TerserWebpackPlugin({
+                terserOptions: {
+                    output: {
+                        comments: false // 去除注释
+                    }
+                },
+                parallel: true // 并行执行，提升速度
+            }),
+            // 压缩CSS
+            new OptimizeCssAssetsWebpackPlugin({})
+        ]
+    }
 });
 
