@@ -1,6 +1,7 @@
 import * as path from "path";
 import {Configuration} from "webpack";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
+import * as WebpackNotifier from "webpack-notifier";
 
 export const webpackConfig: Configuration = {
     entry: {
@@ -25,7 +26,10 @@ export const webpackConfig: Configuration = {
     target: 'web',
     resolve: {
         // 默认文件后缀
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".json"],
+        alias: {
+            "react-dom": "@hot-loader/react-dom" // 使用@hot-loader/react-dom代替react-dom
+        }
     },
     module: {
         rules: [
@@ -44,12 +48,20 @@ export const webpackConfig: Configuration = {
         ]
     },
     plugins: [
+        new WebpackNotifier({
+            title: 'webpack', // 标题
+            excludeWarnings: true, // 排除警告
+            alwaysNotify: false // 每次触发通知
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../index.html'),
             filename: 'index.html'
         })
     ],
     optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
         splitChunks: {
             cacheGroups: {
                 commons: {

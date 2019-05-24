@@ -8,8 +8,9 @@ ReactDOM.render(
     document.getElementById("app")
 );
 
+new Promise(() => {
 
-'aaa'.includes('a')
+})
 
 if (module.hot) {
     module.hot.accept((err) => {
