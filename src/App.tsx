@@ -13,3 +13,17 @@ export class App extends React.Component{
     }
 }
 
+async function test() {
+    setTimeout(() => {
+        console.log(1111)
+    }, 1000);
+    return '1'
+}
+function *a(){
+    yield 1
+}
+
+test().then(a => {
+    console.log(a);
+});
+

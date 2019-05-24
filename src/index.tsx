@@ -8,10 +8,6 @@ ReactDOM.render(
     document.getElementById("app")
 );
 
-new Promise(() => {
-
-})
-
 if (module.hot) {
     module.hot.accept((err) => {
         err && console.log(err);
