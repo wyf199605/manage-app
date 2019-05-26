@@ -16,9 +16,18 @@ const presets = [
 ];
 
 const plugins = [
-    // "@babel/plugin-syntax-dynamic-import",
+    [
+        "import",
+        {
+            "libraryName": "antd",
+            "libraryDirectory": "es",
+            "style": "css"
+        }
+    ],
+    "@babel/plugin-syntax-dynamic-import",
     // "@babel/plugin-transform-async-to-generator",
-    ["@babel/plugin-transform-runtime", {"corejs": 2}]
+    ["@babel/plugin-transform-runtime", {"corejs": 2}],
+
 ];
 
 module.exports = {presets, plugins};

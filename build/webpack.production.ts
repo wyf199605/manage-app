@@ -14,10 +14,17 @@ export const webpackConfigProduction: Configuration = webpackMerge(webpackConfig
         rules: [
             {
                 test: /\.scss$/,
-                use: [
+                loader: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
+                ]
+            },
+            {
+                test: /\.css/,
+                loader: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
                 ]
             }
         ]
