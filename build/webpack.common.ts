@@ -2,7 +2,6 @@ import * as path from "path";
 import {Configuration} from "webpack";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as WebpackNotifier from "webpack-notifier";
-import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 process['traceDeprecation'] = true; // 开启详细信息
 
@@ -43,11 +42,14 @@ export const webpackConfig: Configuration = {
                     {
                         loader: "babel-loader"
                     },
-                    {
-                        loader: "react-hot-loader/webpack"
-                    },
+                    // {
+                    //     loader: "react-hot-loader/webpack"
+                    // },
                     {
                         loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"
+                    },
+                    {
+                        loader: "eslint-loader"
                     }
                 ]
             }

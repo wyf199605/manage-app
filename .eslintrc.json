@@ -1,0 +1,73 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "commonjs": true,
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    // 缩进检查，4个空格
+    "@typescript-eslint/indent": ["error", 4],
+    // 驼峰写法检查
+    "@typescript-eslint/camelcase": [
+      "error",
+      {
+        "properties":  "always",
+        "ignoreDestructuring": true
+      }
+    ],
+    // 接口和类必须大写字母开头的驼峰写法
+    "@typescript-eslint/class-name-casing": ["error"],
+    // 静止使用 //@ts-igonre 注释
+    "@typescript-eslint/ban-ts-ignore": ["error"],
+    // 要求函数显示返回类型   关闭
+    "@typescript-eslint/explicit-function-return-type": [
+      "off",
+      {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true
+      }
+    ],
+    // 添加接口命名前缀，always要求所有接口带有前缀"I"，never不允许所有接口带有前缀"I"
+    "@typescript-eslint/interface-name-prefix": ["error", "always"],
+    // 禁止使用 <Type> 断言，需使用 as Type 断言
+    "@typescript-eslint/no-angle-bracket-type-assertion": ["error"],
+    // 禁止使用for in 遍历数组
+    "@typescript-eslint/no-for-in-array": ["error"],
+    // 添加类成员前缀 private | public | protected。如下private需使用 _ 前缀
+    "@typescript-eslint/member-naming": ["error", {"private":  "_"}],
+    // 接口interface和类型type定义的成员分隔符样式
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        // 多行
+        "multiline": {
+          "delimiter": "semi", // semi(分号) | none(无) | comma(逗号)
+          "requireLast": true
+        },
+        // 单行
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    // 在语句结尾处需要分号
+    "@typescript-eslint/semi": [
+      "error",
+      "always",
+      {"omitLastInOneLineBlock": true} // 忽略行块最后一个分号
+    ],
+    // 不允许awit 不是Promise的值
+    "@typescript-eslint/await-thenable": ["warn"]
+  }
+}

@@ -4,16 +4,16 @@ declare module '*.scss'{
     export default content;
 }
 
-// 异步加载模块
-declare module 'page'{
-    const content: any;
-    export default content;
-}
+// // 异步加载模块
+// declare module 'page'{
+//     const content: any;
+//     export default content;
+// }
 
 // 自定义JSON格式
-interface obj<T = any> {
+type obj<T = any> = {
     [any: string]: T;
-}
+};
 
 // 基本类型
 type Primitive = string | number | boolean | symbol | null | undefined;

@@ -14,8 +14,7 @@ const bootstrap = async (): Promise<Koa> => {
     let middleware = await koaWebpack({
         compiler: compiler,
         hotClient: {
-            reload: true,
-            hmr: true
+            reload: true
         }
     });
 

@@ -1,71 +1,164 @@
 import * as React from "react";
 import {ComponentType} from "react";
-import {func} from "prop-types";
 
-type LoadFn = () => Promise<typeof import("page")>;
+type PageType = {default: ComponentType};
 
+interface ILoadingProps{
+    error: any;
+    timeout: boolean;
+    onRetry: Function;
+}
 
-interface IOption{
-    loader: LoadFn;
-    loading?: ComponentType;
-    error?: ComponentType;
+interface IOption {
+    loader: () => Promise<PageType>;
+    loading?: ComponentType<ILoadingProps>;
     timeout?: number;
-    delay?: number;
 }
 
-interface IProps extends obj{}
+interface IProps extends obj {}
 
-interface IState {
-    status: "pending" | "resolve" | "reject";
+interface ILoadState {
+    loading: boolean;
+    error: any;
+    loaded: PageType;
 }
 
-function createElement (component: typeof import("page"), props: obj) {
-    let Component = component.default;
-    return <Component {...props}/>
+interface IState extends ILoadState{
+    timeout: boolean;
+}
+
+function createElement(obj: any, props: obj) {
+    let Component = obj && obj.__esModule ? obj.default : obj;
+    return <Component {...props}/>;
 }
 
 function Loading(){
-    return <div>loading...</div>
+    return <div>loading</div>;
 }
 
-function Fail(){
-    return <div>error</div>
+function load(loader: () => Promise<PageType>): {
+    state: ILoadState;
+    promise: Promise<PageType>;
+} {
+    let state: ILoadState = {
+        error: null,
+        loading: true,
+        loaded: null
+    };
+    let promise = loader().then((res) => {
+        console.log(res);
+        state.loading = false;
+        state.loaded = res;
+        return res;
+    }).catch((err) => {
+        state.loading = false;
+        state.error = err;
+        throw err;
+    });
+
+    return {
+        state,
+        promise
+    };
 }
 
-export function PageLoader(option: IOption): obj {
+export function PageLoader(option: IOption): ComponentType {
     let LoadingComponent = option.loading || Loading,
-        FailComponent = option.error || Fail;
-    let promise: Promise<typeof import("page")>;
+        timeout = option.timeout,
+        state: ILoadState,
+        promise: Promise<PageType>;
 
+    function init(){
+        let res = load(option.loader);
+        state = res.state;
+        promise = res.promise;
+    }
 
-
-    return class AsyncComponent extends React.Component<IProps, IState>{
+    class LoadComponent extends React.Component<IProps, IState>{
         constructor(props){
             super(props);
+            init();
             this.state = {
-                status: "pending"
+                error: state.error,
+                loading: state.loading,
+                loaded: state.loaded,
+                timeout: false
             };
-
-            promise = option.loader();
         }
 
-        componentWillMount(){
-
+        componentWillMount() {
+            this._mounted = true;
+            this._loadModule();
         }
 
-        private loadModule(){
-            if(this.state.status !== "pending"){
-                return
+        private _mounted: boolean;
+        private _timer: number;
+        clearTimer(){
+            clearTimeout(this._timer);
+        }
+
+        // 加载页面
+        private _loadModule(){
+            if(!state.loading){
+                return ;
             }
+
+            if(typeof timeout === 'number'){
+                this._timer = setTimeout(() => {
+                    this.setState({timeout: true});
+                }, timeout);
+            }
+
+            promise.finally(() => {
+                if(!this._mounted){
+                    return;
+                }
+                this.setState({
+                    error: state.error,
+                    loading: state.loading,
+                    loaded: state.loaded
+                });
+                this.clearTimer();
+            });
         }
 
-        render(){
-            switch (this.state.status) {
-                case "pending":
-                    return <LoadingComponent/>;
-                case "reject":
-                    return <FailComponent/>;
+        componentWillUnmount(){
+            this._mounted = false;
+            this.clearTimer();
+        }
+
+        // 重新加载
+        protected retry(){
+            init();
+            this.setState({
+                error: null,
+                loading: true,
+                timeout: false
+            }, () => {
+                this._loadModule();
+            });
+        }
+
+        render() {
+            let {
+                error,
+                loading,
+                loaded,
+                timeout
+            } = this.state;
+
+            if(loading || error) {
+                return <LoadingComponent error={error}
+                    timeout={timeout}
+                    onRetry={() => this.retry()}/>;
+            }else if(loaded) {
+
+                return createElement(loaded, this.props);
+            }else {
+                return null;
             }
         }
     }
+
+    return LoadComponent;
 }

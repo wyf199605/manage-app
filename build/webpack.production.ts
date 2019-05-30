@@ -14,6 +14,7 @@ export const webpackConfigProduction: Configuration = webpackMerge(webpackConfig
         rules: [
             {
                 test: /\.scss$/,
+                exclude: /node_modules/,
                 loader: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
