@@ -68,6 +68,31 @@
       {"omitLastInOneLineBlock": true} // 忽略行块最后一个分号
     ],
     // 不允许awit 不是Promise的值
-    "@typescript-eslint/await-thenable": ["warn"]
+    "@typescript-eslint/await-thenable": ["warn"],
+    // 禁止使用eval
+    "no-eval": ["error"],
+    // 禁止隐式eval，如：setTimeout("alert(1)", 1000);
+    "no-implied-eval": ["error"],
+    // 禁止在循环中使用await
+    "no-await-in-loop": ["error"],
+    // 禁止不必要的分号，如 let a;;
+    "no-extra-semi": ["error"],
+    // 此规则强制在对象字面量属性中的键和值之间保持一致的间距
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false, // 不允许在对象文字中的键和冒号之间使用空格
+        "afterColon": true, // 需要在冒号和对象文字中的值之间至少有一个空格
+        "mode": "strict" // 在对象文字的冒号之前后之后执行一个空格
+      }
+    ],
+    // 箭头函数空格定义
+    "arrow-spacing": [
+      "error",
+      {
+        "before": true,
+        "after": true
+      }
+    ]
   }
 }
