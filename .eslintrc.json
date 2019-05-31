@@ -93,6 +93,19 @@
         "before": true,
         "after": true
       }
-    ]
+    ],
+    // 运算符强制使用空格，error: `let a=1+2;`，success: `let a = 1 + 2;`
+    "space-infix-ops": ["error"],
+    // swtich语句中case,default 字段冒号前不允许有空格，冒号后需有空格
+    "switch-colon-spacing": ["error"],
+    // generator函数必须要yield关键字，否则不能声明成generator函数
+    "require-yield": ["error"],
+    // async函数必须要有await关键字，否则不能声明成async function
+    "require-await": ["error"],
+    // 需使用let or const 来声明变量，而不是var
+    "no-var": ["error"],
+    "array-element-newline": ["off", { "multiline": true }],
+    // 数组括号首尾需保持一致的换行数
+    "array-bracket-newline": ["error", "consistent"]
   }
 }

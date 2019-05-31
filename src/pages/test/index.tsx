@@ -1,5 +1,6 @@
 import * as React from "react";
 import {hot} from "react-hot-loader/root";
+import {connect} from "react-redux";
 
 const state = {
     name: 'wyf',
@@ -11,9 +12,11 @@ const state = {
 const TestContext = React.createContext(state);
 
 @hot
+@connect<{}, {} ,{}, obj>((store) => ({name: store.name}))
 export default class TestPage extends React.Component <obj, typeof state>{
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             name: state.name,
             changeName: () => {
@@ -24,7 +27,7 @@ export default class TestPage extends React.Component <obj, typeof state>{
         };
     }
 
-    render(){
+    render(): React.ReactNode{
         return <div>
             <TestContext.Provider value={this.state}>
                 <Context/>
