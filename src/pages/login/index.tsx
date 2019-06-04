@@ -1,19 +1,42 @@
 import * as React from "react";
 import "./style.scss";
-import {Link} from "react-router-dom";
+import {RouteComponentProps} from "react-router-dom";
 import {hot} from "react-hot-loader/root";
+import {connect} from "react-redux";
+import {StoreState} from "../../store";
+import {UserInfoState} from "../../store/reducers/userInfo";
+import {Actions} from "../../store/actions";
+
+interface IStateProps {
+    userInfo: UserInfoState;
+}
+
+interface IDispatchProps {
+    recodeHandler: (userInfo: UserInfoState) => void;
+}
 
 @hot
-export default class LoginPage extends React.Component{
+@connect<IStateProps, IDispatchProps, any, StoreState>((state) => {
+    return {
+        userInfo: state.userInfo
+    };
+}, (disptach) => {
+    return {
+        recodeHandler: (userInfo) => {
+            disptach({
+                type: Actions.RECORD_USER_INFO,
+                userInfo: userInfo
+            });
+        }
+    };
+})
+export default class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComponentProps>{
 
-    render(){
+
+
+    render(): React.ReactNode {
+        console.log(this.props.userInfo);
         return <div className="login-page">
-            <p>
-                <Link to="/home">home</Link>
-            </p>
-            <p>
-                <Link to="/test">test</Link>
-            </p>
             <input type="text"/>
         </div>;
     }
