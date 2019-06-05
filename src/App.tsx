@@ -2,14 +2,23 @@ import * as React from "react";
 import {AppRouter} from "./router";
 import {Provider} from "react-redux";
 import {hot} from "react-hot-loader/root";
-import {store} from "./store";
+import {configureStore} from "./store";
+import {PersistGate} from 'redux-persist/integration/react';
 
-@hot
-export class App extends React.Component{
+const {
+    store,
+    persistor
+} = configureStore();
+
+class AppComponent extends React.Component{
     render(){
         return <Provider store={store}>
-            <AppRouter/>
+            <PersistGate loading={null} persistor={persistor}>
+                <AppRouter/>
+            </PersistGate>
         </Provider>;
     }
 }
+
+export const App = hot(AppComponent);
 

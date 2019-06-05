@@ -1,11 +1,14 @@
 import * as React from "react";
 import "./style.scss";
-import {RouteComponentProps} from "react-router-dom";
+import {Link, RouteComponentProps} from "react-router-dom";
 import {hot} from "react-hot-loader/root";
-import {connect} from "react-redux";
+import {connect, MapDispatchToPropsParam, MapStateToPropsParam} from "react-redux";
 import {StoreState} from "../../store";
 import {UserInfoState} from "../../store/reducers/userInfo";
 import {Actions} from "../../store/actions";
+import {storageCreator, StorageProps} from "../../utils/storageCreator";
+import {Button} from "../../components/button";
+
 
 interface IStateProps {
     userInfo: UserInfoState;
@@ -15,29 +18,58 @@ interface IDispatchProps {
     recodeHandler: (userInfo: UserInfoState) => void;
 }
 
-@hot
-@connect<IStateProps, IDispatchProps, any, StoreState>((state) => {
+const mapStateToProps: MapStateToPropsParam<IStateProps, any, StoreState> = (state) => {
     return {
         userInfo: state.userInfo
     };
-}, (disptach) => {
+};
+
+const mapDispatchToProps: MapDispatchToPropsParam<IDispatchProps, any> = (dispatch) => {
     return {
         recodeHandler: (userInfo) => {
-            disptach({
+            dispatch({
                 type: Actions.RECORD_USER_INFO,
                 userInfo: userInfo
             });
         }
     };
-})
-export default class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComponentProps>{
+};
 
+interface ISubmitParam {
+    username: string;
+    password: string;
+    remember: boolean;
+}
 
+class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComponentProps & StorageProps<'username' | 'password'>>{
 
-    render(): React.ReactNode {
-        console.log(this.props.userInfo);
+    render() {
+        let {
+            username,
+            password
+        } = this.props.storage.get();
+
+        username && (username = atob(username));
+        password && (password = atob(password));
+
         return <div className="login-page">
-            <input type="text"/>
+            <Button>aaa</Button>
+            <Button type="primary">aaa</Button>
+            <Button type="info">aaa</Button>
+            <Button type="danger">aaa</Button>
+            <Button type="warn" disabled={true}>aaa</Button>
+            <Button type="link">aaa</Button>
         </div>;
     }
 }
+
+// 热更新
+export default hot(
+    // redux connect连接
+    connect(mapStateToProps, mapDispatchToProps)(
+        storageCreator('username', 'password')(
+            LoginPage
+        )
+    )
+);
+

@@ -1,3 +1,16 @@
+@import "../../style/helper/index.scss";
+
 .login-page{
-  color: red;
+  @include coverScreen();
+  @include flex();
+  .login-form{
+    width: 400px;
+    padding: 20px 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    .form-item-box{
+      @include flex(space-between);
+    }
+  }
 }

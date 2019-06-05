@@ -16,14 +16,6 @@ const presets = [
 ];
 
 const plugins = [
-    [
-        "import",
-        {
-            "libraryName": "antd",
-            "libraryDirectory": "es",
-            "style": "css"
-        }
-    ],
     "@babel/plugin-syntax-dynamic-import",
     // "@babel/plugin-transform-async-to-generator",
     ["@babel/plugin-transform-runtime", {"corejs": 2}],

@@ -15,12 +15,12 @@
   "dependencies": {
     "@babel/runtime-corejs2": "^7.4.5",
     "@hot-loader/react-dom": "^16.8.6",
-    "antd": "^3.18.2",
     "react": "^16.8.6",
     "react-hot-loader": "^4.8.7",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
@@ -52,7 +52,6 @@
     "@typescript-eslint/parser": "^1.9.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
-    "babel-plugin-import": "^1.11.2",
     "clean-webpack-plugin": "^2.0.2",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
@@ -65,6 +64,7 @@
     "open": "^6.3.0",
     "open-browser-webpack-plugin": "^0.0.5",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",

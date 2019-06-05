@@ -46,7 +46,6 @@ function load(loader: () => Promise<PageType>): {
         loaded: null
     };
     let promise = loader().then((res) => {
-        console.log(res);
         state.loading = false;
         state.loaded = res;
         return res;

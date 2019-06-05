@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, RouteProps, Switch} from "react-router-dom";
 import {PageLoader} from "./utils/pageLoader";
 
 const HomePage = PageLoader({

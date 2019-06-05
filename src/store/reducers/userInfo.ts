@@ -20,11 +20,13 @@ type ClearUserInfoAction = {
     type: Actions.CLEAR_USER_INFO;
 };
 
+const userInfoState: UserInfoState = {
+    username: '',
+    token: ''
+};
+
 export const userInfo = reducerCreator<UserInfoAction, UserInfoState>(
-    {
-        username: '',
-        token: ''
-    },
+    userInfoState,
     {
         [Actions.RECORD_USER_INFO]: (state, action) => {
             return {

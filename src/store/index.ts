@@ -1,6 +1,18 @@
-import {createStore, combineReducers, applyMiddleware, Middleware} from "redux";
+import {createStore, combineReducers, applyMiddleware, Middleware, bindActionCreators} from "redux";
 import ReduxThunk from "redux-thunk";
-import {UserInfoState, userInfo, UserInfoAction} from "./reducers/userInfo";
+import {persistReducer, persistStore} from "redux-persist";
+import storage from 'redux-persist/lib/storage';
+import {userInfo, UserInfoAction} from "./reducers/userInfo";
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
+export type StoreState = ReturnType<typeof rootReducer>;
+
+type StoreActions = UserInfoAction;
+
+export type StoreAction = StoreActions[keyof StoreActions];
+
+const rootReducer = combineReducers({
+    userInfo
+});
 
 const middleware: Middleware[] = [ReduxThunk];
 
@@ -9,19 +21,24 @@ if(process.env.NODE_ENV === 'development'){
     middleware.push(createLogger());
 }
 
-export type StoreState = {
-    userInfo: UserInfoState;
-};
+const composedEnhancers = composeWithDevTools(applyMiddleware(...middleware));
 
-type StoreActions = UserInfoAction;
-export type StoreAction = StoreActions[keyof StoreActions];
+export function configureStore(){
+    let store = createStore<StoreState, StoreAction,{} ,{}>(
+        persistReducer({
+            key: 'root',
+            storage: storage
+        }, rootReducer),
+        composedEnhancers
+    );
 
-export const store = createStore<StoreState, StoreAction,{} ,{}>(
-    combineReducers({
-        userInfo
-    }),
-    applyMiddleware(...middleware)
-);
+    let persistor = persistStore(store);
+    return {
+        persistor,
+        store
+    };
+}
+
 
 
 
