@@ -8,6 +8,7 @@ import {UserInfoState} from "../../store/reducers/userInfo";
 import {Actions} from "../../store/actions";
 import {storageCreator, StorageProps} from "../../utils/storageCreator";
 import {Button} from "../../components/button";
+import {Input} from "../../components/input";
 
 
 interface IStateProps {
@@ -59,6 +60,7 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
             <Button type="danger">aaa</Button>
             <Button type="warn" disabled={true}>aaa</Button>
             <Button type="link">aaa</Button>
+            <Input/>
         </div>;
     }
 }
