@@ -59,8 +59,6 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
             <CheckBox.Group>
                 <CheckBox clickArea="all">test</CheckBox>
                 <CheckBox clickArea="all">aaa</CheckBox>
-                <div>123</div>
-
             </CheckBox.Group>
             <Input
                 type="text"
