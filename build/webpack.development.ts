@@ -10,7 +10,13 @@ export const webpackConfigDevelopment: Configuration = webpackMerge(webpackConfi
                 test: /\.scss$/,
                 loader: [
                     'style-loader',
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        // options: {
+                        //     modules: true,
+                        //     camelCase: true
+                        // }
+                    },
                     'sass-loader'
                 ]
             },

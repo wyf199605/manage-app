@@ -15,3 +15,8 @@
   height: 100%;
   background-color: $backColor;
 }
+
+@mixin wh($width, $height: $width){
+  width: $width;
+  height: $height;
+}

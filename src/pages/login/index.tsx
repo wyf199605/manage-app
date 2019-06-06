@@ -7,8 +7,9 @@ import {StoreState} from "../../store";
 import {UserInfoState} from "../../store/reducers/userInfo";
 import {Actions} from "../../store/actions";
 import {storageCreator, StorageProps} from "../../utils/storageCreator";
-import {Button} from "../../components/button";
-import {Input} from "../../components/input";
+import {Button} from "../../components/general/button";
+import {Input} from "../../components/form/input";
+import {CheckBox} from "../../components/form/checkBox";
 
 
 interface IStateProps {
@@ -54,13 +55,18 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
         password && (password = atob(password));
 
         return <div className="login-page">
-            <Button>aaa</Button>
-            <Button type="primary">aaa</Button>
-            <Button type="info">aaa</Button>
-            <Button type="danger">aaa</Button>
-            <Button type="warn" disabled={true}>aaa</Button>
-            <Button type="link">aaa</Button>
-            <Input/>
+            <input type="checkbox"/>
+            <CheckBox.Group>
+                <CheckBox clickArea="all">test</CheckBox>
+                <CheckBox clickArea="all">aaa</CheckBox>
+                <div>123</div>
+
+            </CheckBox.Group>
+            <Input
+                type="text"
+                prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}
+                suffixIcon={<span className="icon-wrapper iconfont icon-browse"/>}
+            />
         </div>;
     }
 }

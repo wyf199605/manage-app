@@ -1,0 +1,62 @@
+@import "../../../style/helper/index";
+
+.check-box-wrapper{
+  display: inline-flex;
+  position: relative;
+  line-height: 1;
+  user-select: none;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  &[data-checked=true]{
+    .check-box-rect{
+      border-color: $primary;
+      background-color: $primary;
+
+      &::after{
+        font-family: "iconfont";
+        font-weight: bold;
+        content: "\e721";
+        color: $white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        @include wh(100%);
+      }
+    }
+  }
+
+  .check-box-rect{
+    height: 16px;
+    width: 16px;
+    border-radius: 2px;
+    border: 1px solid $border_color;
+    display: inline-block;
+    cursor: pointer;
+    transition: all .3s;
+    outline: none;
+
+    &:hover, &:focus {
+      border-color: $primary;
+    }
+  }
+
+  .check-box-text{
+    font-size: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  &[data-click-area=all]{
+    cursor: pointer;
+
+    &:hover .check-box-rect{
+      border-color: $primary;
+    }
+  }
+  &[data-click-area=box]{
+    .check-box-rect:hover {
+      border-color: $primary;
+    }
+  }
+}

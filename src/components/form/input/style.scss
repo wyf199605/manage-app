@@ -1,0 +1,79 @@
+@import "../../../style/helper/index";
+
+.input-wrapper{
+  //color: #fff;
+  background-color: $white;
+  height: 32px;
+  border: 1px solid $border_color;
+  border-radius: 4px;
+  transition: all .3s;
+  user-select: none;
+  position: relative;
+
+  .input-icon{
+    @include wh(32px);
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+
+    .icon-wrapper{
+      @include wh(100%);
+      @include flex();
+      cursor: pointer;
+    }
+
+    &.input-prefix-icon{
+      left: 0;
+      & ~ .input{
+        padding-left: 32px;
+      }
+    }
+
+    &.input-suffix-icon{
+      right: 0;
+      & ~ .input{
+        padding-right: 32px;
+      }
+    }
+  }
+
+  .input{
+    margin: 0;
+    border: none;
+    color: $text_color;
+    line-height: 1.5;
+    @include wh(100%);
+    padding: 0 11px;
+    outline: none;
+    background-color: transparent;
+
+    &[readonly]{
+      cursor: default;
+    }
+  }
+
+  &:hover {
+    border-color: $primary;
+  }
+
+  &[data-input-focus=true]{
+    border-color: $primary;
+  }
+
+  &[data-input-readonly=true]{
+    border-color: $border_color;
+    &:hover {
+      border-color: $border_color;
+    }
+  }
+
+  &[data-input-disabled=true]{
+    background-color: $disabled;
+    border-color: $border_color;
+    input[disabled]{
+      background-color: $disabled;
+      color: rgba(0, 0, 0, 0.25);
+      cursor: not-allowed;
+    }
+  }
+}

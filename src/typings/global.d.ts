@@ -1,6 +1,8 @@
 // 允许导入scss文件
 declare module '*.scss'{
-    const content: any;
+    const content: {
+        [className: string]: string
+    };
     export default content;
 }
 

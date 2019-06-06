@@ -1,4 +1,4 @@
-@import "../../style/helper/index";
+@import "../../../style/helper/index";
 
 .btn-wrapper{
   position: relative;
@@ -92,8 +92,8 @@
   &[disabled]:hover,
   &[disabled]:active{
     color: rgba(0,0,0,0.25);
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: $disabled;
+    border-color: $border_color;
     text-shadow: none;
     box-shadow: none;
     cursor: not-allowed;
