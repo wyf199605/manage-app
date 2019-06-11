@@ -44,6 +44,13 @@ interface ISubmitParam {
 }
 
 class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComponentProps & StorageProps<'username' | 'password'>>{
+    constructor(props){
+        super(props);
+    }
+
+    clickHandler() {
+        console.log('test1111');
+    }
 
     render() {
         let {
@@ -55,11 +62,14 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
         password && (password = atob(password));
 
         return <div className="login-page">
-            <input type="checkbox"/>
-            <CheckBox.Group>
-                <CheckBox clickArea="all">test</CheckBox>
-                <CheckBox clickArea="all">aaa</CheckBox>
+            <CheckBox indeterminate={true}>测试</CheckBox>
+            <CheckBox.Group layout={"vertical"} defaultValues={['1']}>
+                <CheckBox name="1">测试</CheckBox>
+                <CheckBox name="2">aaa</CheckBox>
             </CheckBox.Group>
+            <button onClick={() => {
+                this.clickHandler();
+            }}>test</button>
             <Input
                 type="text"
                 prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}

@@ -42,9 +42,9 @@ export const webpackConfig: Configuration = {
                     {
                         loader: "babel-loader"
                     },
-                    // {
-                    //     loader: "react-hot-loader/webpack"
-                    // },
+                    {
+                        loader: "react-hot-loader/webpack"
+                    },
                     {
                         loader: "awesome-typescript-loader?tsconfig=../tsconfig.json"
                     },

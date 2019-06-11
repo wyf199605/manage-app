@@ -1,62 +1,122 @@
 @import "../../../style/helper/index";
 
-.check-box-wrapper{
-  display: inline-flex;
-  position: relative;
+// CheckBox样式
+.checkbox-wrapper{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
   line-height: 1;
-  user-select: none;
-  align-items: flex-start;
-  justify-content: flex-start;
+  cursor: pointer;
+  color: $text_color;
 
-  &[data-checked=true]{
-    .check-box-rect{
-      border-color: $primary;
-      background-color: $primary;
+  // 默认未选中状态下checkBox样式
+  .checkbox{
+    display: inline-block;
+    position: relative;
+    top: -0.08em;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    vertical-align: middle;
+
+    .checkbox-inner{
+      display: block;
+      @include coverScreen();
+      @include wh(100%);
+      z-index: -1;
+      border: 1px solid $border_color;
+      border-radius: 2px;
+      transition: all .3s;
 
       &::after{
         font-family: "iconfont";
+        content: " ";
+        color: #fff;
         font-weight: bold;
-        content: "\e721";
-        color: $white;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        @include wh(100%);
+        font-size: 14px;
+      }
+    }
+
+    input[type=checkbox]{
+      @include coverScreen();
+      @include wh(100%);
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: inherit;
+    }
+  }
+
+  // 悬浮样式
+  &:hover{
+    .checkbox-inner {
+      border-color: $primary;
+    }
+  }
+
+  // 选中样式
+  &[data-checked=true][data-indeterminate=false]{
+    .checkbox{
+      .checkbox-inner{
+        background-color: $primary;
+        border-color: $primary;
+        &::after{
+          content: "\e721";
+        }
       }
     }
   }
 
-  .check-box-rect{
-    height: 16px;
-    width: 16px;
-    border-radius: 2px;
-    border: 1px solid $border_color;
-    display: inline-block;
-    cursor: pointer;
-    transition: all .3s;
-    outline: none;
-
-    &:hover, &:focus {
-      border-color: $primary;
+  // 半选样式
+  &[data-indeterminate=true]{
+    .checkbox{
+      .checkbox-inner {
+        @include flex();
+        background-color: transparent;
+        &::after{
+          content: ""!important;
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          background-color: $primary;
+        }
+      }
     }
   }
 
-  .check-box-text{
-    font-size: 14px;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  &[data-click-area=all]{
-    cursor: pointer;
-
-    &:hover .check-box-rect{
-      border-color: $primary;
+  // 不可点击样式
+  &[data-disabled=true]{
+    cursor: not-allowed;
+    //color: $disabled;
+    .checkbox{
+      .checkbox-inner{
+        background-color: $disabled!important;
+        border-color: $border_color!important;
+        &::after{
+          color: $text_color;
+        }
+      }
     }
   }
-  &[data-click-area=box]{
-    .check-box-rect:hover {
-      border-color: $primary;
-    }
+
+  // 文字样式
+  .checkbox-text{
+    padding: 0 8px;
+    color: inherit;
+    user-select: none;
+  }
+}
+
+// CheckBoxGroup样式
+.check-box-group-wrapper{
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  &[data-layout=vertical]{
+    flex-direction: column;
+
   }
 }

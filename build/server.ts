@@ -30,10 +30,10 @@ const bootstrap = async (): Promise<Koa> => {
 };
 
 bootstrap().then(app => {
-    app.listen(3001, () => {
-        console.log('成功监听在 3001');
+    app.listen(3000, () => {
+        console.log('成功监听在 3000');
 
-        open('http://localhost:3001');
+        open('http://localhost:3000');
     });
     app.on('error', err => {
         err && console.log(err)
