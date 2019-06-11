@@ -7,9 +7,9 @@ import {StoreState} from "../../store";
 import {UserInfoState} from "../../store/reducers/userInfo";
 import {Actions} from "../../store/actions";
 import {storageCreator, StorageProps} from "../../utils/storageCreator";
-import {Button} from "../../components/general/button";
 import {Input} from "../../components/form/input";
 import {CheckBox} from "../../components/form/checkBox";
+import {Radio} from "../../components/form/radio";
 
 
 interface IStateProps {
@@ -48,10 +48,6 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
         super(props);
     }
 
-    clickHandler() {
-        console.log('test1111');
-    }
-
     render() {
         let {
             username,
@@ -64,12 +60,14 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
         return <div className="login-page">
             <CheckBox indeterminate={true}>测试</CheckBox>
             <CheckBox.Group layout={"vertical"} defaultValues={['1']}>
-                <CheckBox name="1">测试</CheckBox>
-                <CheckBox name="2">aaa</CheckBox>
+                <CheckBox value="1">测试</CheckBox>
+                <CheckBox value="2">aaa</CheckBox>
             </CheckBox.Group>
-            <button onClick={() => {
-                this.clickHandler();
-            }}>test</button>
+            <Radio.Group defaultValue={'1'}>
+
+                <Radio value={'1'}>1</Radio>
+                <Radio value={'2'}>2</Radio>
+            </Radio.Group>
             <Input
                 type="text"
                 prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}

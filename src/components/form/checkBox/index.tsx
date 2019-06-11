@@ -3,7 +3,8 @@ import "./style.scss";
 import {CheckBoxGroup} from "./group";
 
 export interface ICheckBoxProps {
-    name?: string; // 设置checkBox的name属性，仅在group中使用
+    name?: string; // 设置checkBox的name属性
+    value?: any; // 设置checkBox的value属性，仅在group中使用
     indeterminate?: boolean; // 部分选中状态，仅在受控状态下使用
     defaultChecked?: boolean; // 默认选中状态，受控状态下无效
     checked?: boolean; // 选中值，开启受控状态
@@ -62,6 +63,7 @@ export class CheckBox extends React.Component<ICheckBoxProps, ICheckBoxState>{
         >
             <span className="checkbox">
                 <input
+                    name={name}
                     type="checkbox"
                     disabled={disabled}
                     checked={checked}

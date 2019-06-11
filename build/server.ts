@@ -21,7 +21,7 @@ const bootstrap = async (): Promise<Koa> => {
     app.use(middleware);
 
     app.use(async (ctx) => {
-        const filename = path.resolve(webpackConfigDevelopment.output.path, 'index.html');
+        const filename = path.resolve(webpackConfigDevelopment.output.path, 'index.tsx.html');
         ctx.response.type = 'html';
         ctx.response.body = middleware.devMiddleware.fileSystem.createReadStream(filename)
     });

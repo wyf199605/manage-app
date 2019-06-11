@@ -1,7 +1,7 @@
 import * as React from "react";
 import {JSXElementConstructor} from "react";
-import {CheckBox, ICheckBoxProps} from "./index";
 import {ReactNode} from "react";
+import {CheckBox, ICheckBoxProps} from "./index";
 
 type CheckBoxNode = React.ReactElement<
 ICheckBoxProps & Readonly<{ children?: ReactNode }>,
@@ -10,6 +10,7 @@ JSXElementConstructor<ICheckBoxProps & Readonly<{ children?: ReactNode }>>
 
 interface ICheckBoxGroupProps {
     children?: CheckBoxNode | CheckBoxNode[];
+    name?: string; // 设置CheckBox name属性
     layout?: "horizontal" | "vertical"; // 布局方式，水平or垂直，默认水平
     disabled?: boolean; // 是否不可点击
     defaultValues?: string[]; // 默认选中值，在受控状态下无效
@@ -41,14 +42,14 @@ export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBo
         }
     }
 
-    toggleNameHandler(name: string){
+    toggleNameHandler(value: string){
         let values = this.state.values,
             onChange = this.props.onChange,
-            isAppend = values.find((item) => item === name);
+            isAppend = values.find((item) => item === value);
 
         values = isAppend
-            ? values.filter((item) => item !== name)
-            : values.concat(name);
+            ? values.filter((item) => item !== value)
+            : values.concat(value);
 
         this.setState({
             values
@@ -63,17 +64,19 @@ export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBo
         return React.Children.map<React.ReactNode, CheckBoxNode>(this.props.children, (child) => {
             if(typeof child === 'object' && child.type.name === CheckBox.name){
                 let props = child.props,
+                    value = props.value,
                     name = props.name;
-                if(typeof name !== 'string'){
-                    throw new Error('Checkbox在CheckBoxGroup中必须有name参数!');
+                if(typeof value !== 'string'){
+                    throw new Error('Checkbox在CheckBoxGroup中必须有value参数!');
                 }
                 return <CheckBox
                     key={child.key}
                     disabled={typeof disabled === 'undefined' ? props.disabled : disabled}
-                    checked={!!~values.indexOf(name)}
+                    checked={!!~values.indexOf(value)}
                     name={name}
+                    value={value}
                     onChange={() => {
-                        this.toggleNameHandler(name);
+                        this.toggleNameHandler(value);
                     }}
                 >
                     {props.children}

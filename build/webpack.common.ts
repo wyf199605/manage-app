@@ -63,7 +63,7 @@ export const webpackConfig: Configuration = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../index.html'),
-            filename: 'index.html'
+            filename: 'index.tsx.html'
         })
     ],
     optimization: {
