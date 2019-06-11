@@ -1,6 +1,7 @@
 import * as React from "react";
 import {AppRouter} from "./router";
 import {Provider} from "react-redux";
+import {hot} from "react-hot-loader/root";
 import {configureStore} from "./store";
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -9,7 +10,7 @@ const {
     persistor
 } = configureStore();
 
-export class App extends React.Component{
+class AppComponent extends React.Component{
     render(){
         return <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
@@ -18,3 +19,6 @@ export class App extends React.Component{
         </Provider>;
     }
 }
+
+export const App = hot(AppComponent);
+

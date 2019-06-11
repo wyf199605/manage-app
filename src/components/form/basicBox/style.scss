@@ -1,0 +1,72 @@
+@import "../../../style/helper/index";
+
+.basic-box-wrapper{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+  color: $text_color;
+
+  .box{
+    display: inline-block;
+    position: relative;
+    top: -0.08em;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    vertical-align: middle;
+
+    .box-inner{
+      display: block;
+      @include coverScreen();
+      @include wh(100%);
+      z-index: -1;
+      border: 1px solid $border_color;
+      transition: all .3s;
+
+      &::after{
+        content: " ";
+      }
+    }
+
+    input[type=checkbox],
+    input[type=radio]{
+      @include coverScreen();
+      @include wh(100%);
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: inherit;
+    }
+  }
+
+  // 悬浮样式
+  &:hover{
+    .box .box-inner {
+      border-color: $primary;
+    }
+  }
+
+  &[data-disabled=true] {
+    cursor: not-allowed;
+    //color: $disabled;
+    .box {
+      .-inner {
+        background-color: $disabled !important;
+        border-color: $border_color !important;
+
+        &::after {
+          color: $text_color;
+        }
+      }
+    }
+  }
+
+  // 文字样式
+  .box-text{
+    padding: 0 8px;
+    color: inherit;
+    user-select: none;
+  }
+}

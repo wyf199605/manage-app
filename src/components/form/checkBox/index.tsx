@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 import {CheckBoxGroup} from "./group";
+import {BasicBox} from "../basicBox";
 
 export interface ICheckBoxProps {
     name?: string; // 设置checkBox的name属性
@@ -49,30 +50,34 @@ export class CheckBox extends React.Component<ICheckBoxProps, ICheckBoxState>{
     }
 
     render(){
-        let disabled = this.props.disabled,
-            name = this.props.name,
-            indeterminate = this.props.indeterminate,
-            checked = this._controlled ? this.props.checked : this.state.checked;
+        let {
+            children,
+            disabled,
+            indeterminate,
+            checked: propsChecked,
+            name
+        } = this.props;
 
-        return <label
-            className="checkbox-wrapper"
-            data-name={name}
-            data-disabled={disabled}
-            data-checked={checked}
-            data-indeterminate={this._controlled && indeterminate}
+        let classNames = ['checkbox-wrapper'],
+            checked = this._controlled ? propsChecked : this.state.checked;
+
+        // 部分选中样式
+        if(indeterminate){
+            classNames.push('indeterminate');
+        }
+
+        return <BasicBox
+            className={classNames.join(' ')}
+            type="checkbox"
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            onChange={(e) => {
+                this.checkedHandler(e);
+            }}
         >
-            <span className="checkbox">
-                <input
-                    name={name}
-                    type="checkbox"
-                    disabled={disabled}
-                    checked={checked}
-                    onChange={(e) => this.checkedHandler(e)}
-                />
-                <span className="checkbox-inner"/>
-            </span>
-            <span className="checkbox-text">{this.props.children}</span>
-        </label>;
+            {children}
+        </BasicBox>;
     }
 }
 
