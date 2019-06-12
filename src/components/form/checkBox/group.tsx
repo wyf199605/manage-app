@@ -2,6 +2,7 @@ import * as React from "react";
 import {JSXElementConstructor} from "react";
 import {ReactNode} from "react";
 import {CheckBox, ICheckBoxProps} from "./index";
+import {BoxGroup} from "../basicBox/group";
 
 type CheckBoxNode = React.ReactElement<
 ICheckBoxProps & Readonly<{ children?: ReactNode }>,
@@ -24,7 +25,6 @@ interface ICheckBoxGroupState {
 
 export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBoxGroupState> {
     static defaultProps: Partial<ICheckBoxGroupProps> = {
-        layout: 'horizontal',
         defaultValues: []
     };
 
@@ -57,39 +57,35 @@ export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBo
         onChange && onChange(values);
     }
 
-    renderCheckBoxes(): React.ReactNode[]{
+    checkBoxPropsInit(props: ICheckBoxProps): ICheckBoxProps{
         let disabled = this.props.disabled,
-            values = this._controlled ? this.props.values : this.state.values;
-
-        return React.Children.map<React.ReactNode, CheckBoxNode>(this.props.children, (child) => {
-            if(typeof child === 'object' && child.type.name === CheckBox.name){
-                let props = child.props,
-                    value = props.value,
-                    name = props.name;
-                if(typeof value !== 'string'){
-                    throw new Error('Checkbox在CheckBoxGroup中必须有value参数!');
-                }
-                return <CheckBox
-                    key={child.key}
-                    disabled={typeof disabled === 'undefined' ? props.disabled : disabled}
-                    checked={!!~values.indexOf(value)}
-                    name={name}
-                    value={value}
-                    onChange={() => {
-                        this.toggleNameHandler(value);
-                    }}
-                >
-                    {props.children}
-                </CheckBox>;
-            }else{
-                return null;
+            values = this._controlled ? this.props.values : this.state.values,
+            value = props.value,
+            name = props.name;
+        return {
+            disabled: typeof disabled === 'undefined' ? props.disabled : disabled,
+            checked: !!~values.indexOf(value),
+            name: name,
+            value: value,
+            onChange: () => {
+                this.toggleNameHandler(value);
             }
-        });
+        };
     }
 
     render(){
-        return <div className="check-box-group-wrapper" data-layout={this.props.layout}>
-            {this.renderCheckBoxes()}
-        </div>;
+        let {
+            children,
+            layout
+        } = this.props;
+
+        return <BoxGroup
+            className={"checkbox-group-wrapper"}
+            Box={CheckBox}
+            propsInit={(props) => this.checkBoxPropsInit(props)}
+            layout={layout}
+        >
+            {children}
+        </BoxGroup>;
     }
 }

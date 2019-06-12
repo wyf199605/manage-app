@@ -22,7 +22,7 @@ export class BasicBox extends React.Component<IBasicBoxProps>{
             disabled
         } = this.props;
 
-        return <div
+        return <label
             className={"basic-box-wrapper " + className}
             data-input-type={type}
             data-checked={checked}
@@ -41,6 +41,6 @@ export class BasicBox extends React.Component<IBasicBoxProps>{
                 <span className="box-inner"/>
             </span>
             <span className="box-text">{children}</span>
-        </div>;
+        </label>;
     }
 }

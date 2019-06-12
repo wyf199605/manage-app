@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 import {RadioGroup} from "./group";
+import {BasicBox} from "../basicBox";
 
 export interface IRadioProps {
     name?: string;
@@ -42,27 +43,25 @@ export class Radio extends React.Component<IRadioProps, IRadioState>{
     }
 
     render(){
-        let checked = this._controlled ? this.props.checked : this.state.checked,
-            name = this.props.name,
-            disabled = this.props.disabled;
+        let {
+            children,
+            disabled,
+            checked: propsChecked,
+            name
+        } = this.props;
 
-        return <label
-            className="radio-wrapper"
-            data-disabled={disabled}
-            data-checked={checked}
-            data-name={name}
+        let classNames = ['radio-wrapper'],
+            checked = this._controlled ? propsChecked : this.state.checked;
+
+        return <BasicBox
+            type="radio"
+            className={classNames.join(' ')}
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            onChange={(e) => this.checkedHandler(e)}
         >
-            <span className="radio">
-                <input
-                    name={name}
-                    type="radio"
-                    disabled={disabled}
-                    checked={checked}
-                    onChange={(e) => this.checkedHandler(e)}
-                />
-                <span className="radio-inner"/>
-            </span>
-            <span className="radio-text">{this.props.children}</span>
-        </label>;
+            {children}
+        </BasicBox>;
     }
 }

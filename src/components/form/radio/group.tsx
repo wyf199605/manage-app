@@ -2,6 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {JSXElementConstructor} from "react";
 import {IRadioProps, Radio} from "./index";
+import {BoxGroup} from "../basicBox/group";
 
 type RadioNode = React.ReactElement<
 IRadioProps & Readonly<{ children?: ReactNode }>,
@@ -23,12 +24,7 @@ interface IRadioGroupState {
 }
 
 export class RadioGroup extends React.Component<IRadioGroupProps, IRadioGroupState>{
-    static defaultProps: Partial<IRadioGroupProps> = {
-        layout: 'horizontal'
-    };
-
     protected _controlled;
-
     constructor(props: IRadioGroupProps){
         super(props);
         this._controlled = typeof props.value !== 'undefined';
@@ -41,46 +37,40 @@ export class RadioGroup extends React.Component<IRadioGroupProps, IRadioGroupSta
         }
     }
 
-    renderRadios(){
+    radioPropsInit(props: IRadioProps): IRadioProps{
         let {
             disabled,
             name
         } = this.props;
-
         let groupValue = this._controlled ? this.props.value : this.state.value;
+        let value = props.value;
 
-        return React.Children.map<React.ReactNode, RadioNode>(this.props.children, (child) => {
-            if(typeof child === 'object' && child.type.name === Radio.name) {
-                let props = child.props,
-                    value = props.value;
-
-                if(typeof value !== 'string'){
-                    throw new Error(Radio.name + '在' + RadioGroup.name + '中必须有value参数!');
-                }
-
-                return <Radio
-                    key={child.key}
-                    disabled={typeof disabled !== 'undefined' ? disabled : props.disabled}
-                    name={name}
-                    value={value}
-                    checked={value === groupValue}
-                    onChange={() => {
-                        this.setState({
-                            value: value
-                        });
-                    }}
-                >
-                    {props.children}
-                </Radio>;
-            }else{
-                return null;
+        return {
+            disabled: typeof disabled !== 'undefined' ? disabled : props.disabled,
+            name: name,
+            value: value,
+            checked: value === groupValue,
+            onChange: () => {
+                this.setState({
+                    value: value
+                });
             }
-        });
+        };
     }
 
     render(){
-        return <div className="radio-group-wrapper" data-layout={this.props.layout}>
-            {this.renderRadios()}
-        </div>;
+        let {
+            layout,
+            children
+        } = this.props;
+
+        return <BoxGroup
+            className={"radio-group-wrapper"}
+            Box={Radio}
+            layout={layout}
+            propsInit={(props) => this.radioPropsInit(props)}
+        >
+            {children}
+        </BoxGroup>;
     }
 }

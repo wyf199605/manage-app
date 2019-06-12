@@ -64,15 +64,3 @@
   }
 }
 
-// CheckBoxGroup样式
-.check-box-group-wrapper{
-  display: inline-flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  flex-direction: row;
-  &[data-layout=vertical]{
-    flex-direction: column;
-
-  }
-}
