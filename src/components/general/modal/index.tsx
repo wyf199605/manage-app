@@ -31,9 +31,75 @@ export class Modal extends React.Component<IModalProps>{
         className: ''
     };
 
+    protected wrapper: HTMLDivElement;
+
+    componentDidMount(): void {
+        this.focus();
+    }
+    componentDidUpdate(): void {
+        this.focus();
+    }
+
+    protected focus(){
+        if(this.props.visible){
+            this.wrapper.focus();
+        }
+    }
+
     closeHandler(){
         let onClose = this.props.onClose;
         onClose && onClose();
+    }
+
+    keyUpHandler(e: React.KeyboardEvent){
+        console.log(e.keyCode);
+    }
+
+    render(){
+        let {
+            zIndex,
+            visible,
+            children,
+            className,
+            mask,
+            maskClosable,
+            width
+        } = this.props;
+
+        let style = {
+            zIndex,
+            display: visible ? null : 'none'
+        };
+
+        return <div className="modal-wrapper">
+            {mask
+                ? <div
+                    className="modal-mask"
+                    style={style}
+                    onClick={() => {
+                        maskClosable && this.closeHandler();
+                    }}
+                />
+                : null
+            }
+            <div
+                className={`modal-dialog ${className}`}
+                style={Object.assign({
+                    width: width
+                }, style)}
+                tabIndex={-1}
+                onKeyUp={(e) => {
+                    this.keyUpHandler(e);
+                }}
+                ref={(el) => this.wrapper = el}
+            >
+                {this.renderHeader()}
+                <div className="modal-body-wrapper">
+                    {children}
+                </div>
+                {this.renderFooter()}
+            </div>
+        </div>;
     }
 
     renderHeader(){
@@ -79,48 +145,6 @@ export class Modal extends React.Component<IModalProps>{
         </div>;
     }
 
-    render(){
-        let {
-            zIndex,
-            visible,
-            children,
-            className,
-            mask,
-            maskClosable,
-            width
-        } = this.props;
-
-        let style = {
-            zIndex,
-            display: visible ? null : 'none'
-        };
-
-        return <div className="modal-wrapper">
-            {mask
-                ? <div
-                    className="modal-mask"
-                    style={style}
-                    onClick={() => {
-                        maskClosable && this.closeHandler();
-                    }}
-                />
-                : null
-            }
-            <div
-                className={`modal-dialog ${className}`}
-                style={Object.assign({
-                    width: width
-                }, style)}
-                tabIndex={-1}
-            >
-                {this.renderHeader()}
-                <div className="modal-body-wrapper">
-                    {children}
-                </div>
-                {this.renderFooter()}
-            </div>
-        </div>;
-    }
 }
 
 interface IModalHeaderProps {
