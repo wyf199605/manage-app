@@ -1,0 +1,115 @@
+@import "../../../style/helper/index";
+
+.modal-wrapper{
+  .modal-mask{
+    @include coverScreen(fixed, #000);
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background: #000;
+  }
+
+  .modal-dialog{
+    @include flex();
+    flex-direction: column;
+    position: fixed;
+    left: 50%;
+    top: 15%;
+    width: 300px;
+    transform: translateX(-50%);
+    background-color: $white;
+    border-radius: 4px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    overflow: hidden;
+
+    .modal-header-wrapper{
+      $headHeight: 50px;
+
+      flex: 0 0 $headHeight;
+      line-height: $headHeight;
+      padding: 0 20px;
+      width: 100%;
+      position: relative;
+      border-bottom: 1px solid $border_color;
+
+      .modal-title{
+        font-size: inherit;
+        margin: 0;
+        padding: 0;
+      }
+      .modal-close{
+        display: block;
+        position: absolute;
+        @include wh($headHeight);
+        @include flex();
+        top: 0;
+        right: 0;
+        cursor: pointer;
+      }
+    }
+
+    .modal-body-wrapper{
+      width: 100%;
+      padding: 10px 20px 20px;
+      flex: 1 1 auto;
+      word-break: break-all;
+      overflow: auto;
+    }
+    .modal-footer-wrapper{
+      width: 100%;
+      flex: 0 0 50px;
+      padding: 0 20px;
+      line-height: 50px;
+      text-align: right;
+      border-top: 1px solid $border_color;
+
+      .btn-wrapper:not(:last-child){
+        margin-right: 10px;
+      }
+    }
+
+    &.modal-alert-wrapper{
+      top: 20%;
+      border-radius: 10px;
+
+      .modal-header-wrapper{
+        border-bottom: none;
+        .modal-close{
+          display: none;
+        }
+        .modal-title{
+          text-align: center;
+        }
+      }
+
+      .modal-body-wrapper{
+        text-align: center;
+      }
+
+      .modal-footer-wrapper{
+        padding: 0;
+        .alert-button {
+          height: 50px;
+          vertical-align: top;
+          margin: 0 !important;
+          border-radius: 0;
+          background-color: #fff;
+          color: #007AFF;
+          border: none;
+          font-size: 15px;
+          padding: 6px 12px;
+
+          &.btn-primary {
+            background-color: #fff;
+            border-color: #fff;
+            &:active,
+            &:focus,
+            &:hover {
+              background-color: #eee;
+            }
+          }
+        }
+      }
+    }
+  }
+}

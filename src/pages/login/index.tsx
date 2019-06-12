@@ -10,6 +10,7 @@ import {storageCreator, StorageProps} from "../../utils/storageCreator";
 import {Input} from "../../components/form/input";
 import {CheckBox} from "../../components/form/checkBox";
 import {Radio} from "../../components/form/radio";
+import {Modal} from "../../components/general/modal";
 
 
 interface IStateProps {
@@ -48,6 +49,10 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
         super(props);
     }
 
+    componentWillMount(): void {
+        Modal.alert('123');
+    }
+
     render() {
         let {
             username,
@@ -68,6 +73,7 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
                 <Radio value={'1'}>1</Radio>
                 <Radio value={'2'}>2</Radio>
             </Radio.Group>
+
             <Input
                 type="text"
                 prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}

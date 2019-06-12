@@ -2,6 +2,7 @@ import * as React from "react";
 import "./style.scss";
 
 export interface IButtonProps {
+    className?: string;
     disabled?: boolean;
     type?: "default" | "primary" | "warn" | "danger" | "info" | "link";
     htmlType?: "submit" | "button";
@@ -14,7 +15,8 @@ export class Button extends React.Component<IButtonProps>{
         type: 'default',
         htmlType: 'button',
         disabled: false,
-        block: false
+        block: false,
+        className: ''
     };
 
     render(){
@@ -23,16 +25,18 @@ export class Button extends React.Component<IButtonProps>{
                 htmlType,
                 onClick,
                 disabled,
-                block
+                block,
+                className
             } = this.props,
-            className = [
+            classNames = [
                 'btn-wrapper',
+                className,
                 'btn-' + type,
                 block ? 'btn-block' : null
             ];
 
         return <button
-            className={className.join(' ')}
+            className={classNames.join(' ')}
             type={htmlType}
             disabled={disabled}
             onClick={onClick}
