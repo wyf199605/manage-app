@@ -2,6 +2,7 @@ import * as React from "react";
 import "./style.scss";
 import {Button} from "../button";
 import {modalAlert} from "./alert";
+import {modalConfirm} from "./confirm";
 
 export interface IModalProps {
     title?: string;
@@ -21,6 +22,7 @@ export interface IModalProps {
 export class Modal extends React.Component<IModalProps>{
 
     static alert = modalAlert;
+    static confirm = modalConfirm;
 
     static defaultProps: Partial<IModalProps> = {
         visible: false,
@@ -107,7 +109,7 @@ export class Modal extends React.Component<IModalProps>{
             title,
             closable
         } = this.props;
-        return <ModalHeader closable={closable} onClose={() => {this.closeHandler()}}>
+        return title === null ? null : <ModalHeader closable={closable} onClose={() => {this.closeHandler()}}>
             {title || '提示'}
         </ModalHeader>;
     }

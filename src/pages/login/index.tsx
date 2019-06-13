@@ -11,6 +11,7 @@ import {Input} from "../../components/form/input";
 import {CheckBox} from "../../components/form/checkBox";
 import {Radio} from "../../components/form/radio";
 import {Modal} from "../../components/general/modal";
+import {Button} from "../../components/general/button";
 
 
 interface IStateProps {
@@ -50,7 +51,9 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
     }
 
     componentWillMount(): void {
-        Modal.alert('123');
+        Modal.confirm({
+            msg: '12'
+        });
     }
 
     render() {
@@ -73,7 +76,8 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
                 <Radio value={'1'}>1</Radio>
                 <Radio value={'2'}>2</Radio>
             </Radio.Group>
-
+            {/*<Modal visible={true}>11</Modal>*/}
+            <Button>11111</Button>
             <Input
                 type="text"
                 prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}

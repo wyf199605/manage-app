@@ -29,10 +29,12 @@
   &[data-checked=true]{
     .box{
       .box-inner{
+        border: none;
         background-color: $primary;
-        border-color: $primary;
+        //border-color: $primary;
         &::after{
-          content: "\e721";
+          font-size: 16px;
+          content: "\e6ad";
         }
       }
     }

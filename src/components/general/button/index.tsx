@@ -1,10 +1,12 @@
 import * as React from "react";
 import "./style.scss";
 
+export type BtnType = "default" | "primary" | "warn" | "danger" | "info" | "link";
+
 export interface IButtonProps {
     className?: string;
     disabled?: boolean;
-    type?: "default" | "primary" | "warn" | "danger" | "info" | "link";
+    type?: BtnType;
     htmlType?: "submit" | "button";
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     block?: boolean;

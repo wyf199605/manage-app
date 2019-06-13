@@ -22,6 +22,10 @@
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     overflow: hidden;
 
+    &:focus{
+      outline: none;
+    }
+
     .modal-header-wrapper{
       $headHeight: 50px;
 
@@ -109,6 +113,38 @@
             }
           }
         }
+      }
+    }
+
+    &.modal-confirm-wrapper{
+
+      .modal-body-wrapper {
+        padding-bottom: 10px;
+
+        .confirm-title,
+        .confirm-content{
+          padding-left: 20px;
+        }
+
+        .confirm-title{
+          font-weight: bold;
+          margin: 10px 0 20px;
+          position: relative;
+
+          .confirm-icon{
+            position: absolute;
+            left: -5px;
+            top: 0;
+            @include flex();
+            width: 20px;
+            height: 100%;
+            color: $warn;
+          }
+        }
+      }
+
+      .modal-footer-wrapper{
+        border-top: none;
       }
     }
   }
