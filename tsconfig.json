@@ -12,7 +12,7 @@
     "typeRoots": [
       "./src/typings"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@pages/*": [
         "./src/pages/*"

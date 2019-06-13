@@ -4,7 +4,10 @@ import {hot} from "react-hot-loader/root";
 class TestPage extends React.Component <obj> {
     constructor(props) {
         super(props);
-        console.log(props);
+    }
+
+    componentDidMount(): void {
+
     }
 
     render(): React.ReactNode {
