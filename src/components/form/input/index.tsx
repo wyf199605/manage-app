@@ -1,5 +1,6 @@
 import * as React from "react";
 import "./style.scss";
+import {Textarea} from "./textarea";
 
 
 export interface IInputProps {
@@ -21,11 +22,13 @@ interface IInputState {
 }
 
 export class Input extends React.Component<IInputProps, IInputState>{
-    private readonly _innerSet: boolean;
+    static Textarea = Textarea;
+
+    private readonly _controlled: boolean;
 
     constructor(props: IInputProps){
         super(props);
-        this._innerSet = typeof props.value !== 'string';
+        this._controlled = typeof props.value !== 'string';
         this.state = {
             value: props.defaultValue,
             focus: false
@@ -66,7 +69,7 @@ export class Input extends React.Component<IInputProps, IInputState>{
             readOnly
         } = this.props;
 
-        let value = this._innerSet ? this.state.value : this.props.value;
+        let value = this._controlled ? this.state.value : this.props.value;
 
         return <div
             className="input-wrapper"

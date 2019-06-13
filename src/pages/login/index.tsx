@@ -71,18 +71,15 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
                 <CheckBox value="1">测试</CheckBox>
                 <CheckBox value="2">aaa</CheckBox>
             </CheckBox.Group>
-            <Radio.Group defaultValue={'1'}>
+            <Radio.Group defaultValue={'1'} name={'1'}>
 
                 <Radio value={'1'}>1</Radio>
                 <Radio value={'2'}>2</Radio>
             </Radio.Group>
             {/*<Modal visible={true}>11</Modal>*/}
             <Button>11111</Button>
-            <Input
-                type="text"
-                prefixIcon={<span className="icon-wrapper iconfont icon-browse"/>}
-                suffixIcon={<span className="icon-wrapper iconfont icon-browse"/>}
-            />
+            <Input/>
+            <Input.Textarea/>
         </div>;
     }
 }

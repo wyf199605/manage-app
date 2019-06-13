@@ -38,13 +38,13 @@ export function modalConfirm(props: IConfirmProps, container = document.body) {
             visible={true}
             onClose={close}
             footer={[
-                <Button type={props.cancelType} onClick={() => {
+                <Button key="cancel" type={props.cancelType} onClick={() => {
                     confirm && confirm(false);
                     close();
                 }}>
                     {props.cancelText}
                 </Button>,
-                <Button type={props.okType} onClick={() => {
+                <Button key="ok" type={props.okType} onClick={() => {
                     confirm && confirm(true);
                     close();
                 }}>

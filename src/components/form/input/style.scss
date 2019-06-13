@@ -77,3 +77,16 @@
     }
   }
 }
+
+.textarea-wrapper{
+  background-color: $white;
+  border: 1px solid $border_color;
+  border-radius: 4px;
+  transition: all .3s;
+  user-select: none;
+  position: relative;
+  outline: none;
+  color: $text_color;
+  padding: 4px 10px;
+  line-height: 1.5;
+}

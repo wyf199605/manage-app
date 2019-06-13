@@ -11,7 +11,13 @@
     "types": ["webpack-env"], // 默认不引入任何@types下的包
     "typeRoots": [
       "./src/typings"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": [
+        "./src/pages/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

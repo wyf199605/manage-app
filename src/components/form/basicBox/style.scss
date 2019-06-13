@@ -38,6 +38,11 @@
       padding: 0;
       opacity: 0;
       cursor: inherit;
+
+      &:focus + .box-inner {
+        border-color: $primary;
+        opacity: 0.8;
+      }
     }
   }
 

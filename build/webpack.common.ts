@@ -30,7 +30,8 @@ export const webpackConfig: Configuration = {
         // 默认文件后缀
         extensions: [".ts", ".tsx", ".js", ".json"],
         alias: {
-            "react-dom": "@hot-loader/react-dom" // 使用@hot-loader/react-dom代替react-dom
+            "react-dom": "@hot-loader/react-dom", // 使用@hot-loader/react-dom代替react-dom
+            "@pages": path.resolve(__dirname, '../src/pages/')
         }
     },
     module: {
