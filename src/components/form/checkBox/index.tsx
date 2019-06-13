@@ -2,6 +2,7 @@ import * as React from "react";
 import "./style.scss";
 import {CheckBoxGroup} from "./group";
 import {BasicBox} from "../basicBox";
+import {validateControlled} from "../validateControlled";
 
 export interface ICheckBoxProps {
     name?: string; // 设置checkBox的name属性
@@ -31,13 +32,12 @@ export class CheckBox extends React.Component<ICheckBoxProps, ICheckBoxState>{
 
     constructor(props: ICheckBoxProps){
         super(props);
-        this._controlled = typeof props.checked !== 'undefined';
+        this._controlled = 'checked' in props;
         this.state = {
             checked: props.defaultChecked
         };
-        if(this._controlled && typeof props.onChange !== 'function'){
-            throw new Error('受控CheckBox组件必须传入onChange参数');
-        }
+
+        validateControlled(this, 'checked');
     }
 
     checkedHandler(e: React.ChangeEvent<HTMLInputElement>) {

@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 import {Textarea} from "./textarea";
+import {validateControlled} from "../validateControlled";
 
 
 export interface IInputProps {
@@ -28,11 +29,13 @@ export class Input extends React.Component<IInputProps, IInputState>{
 
     constructor(props: IInputProps){
         super(props);
-        this._controlled = typeof props.value !== 'string';
+        this._controlled = 'value' in props;
         this.state = {
             value: props.defaultValue,
             focus: false
         };
+
+        validateControlled(this);
     }
 
     static defaultProps: Partial<IInputProps> = {

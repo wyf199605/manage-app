@@ -3,6 +3,7 @@ import {JSXElementConstructor} from "react";
 import {ReactNode} from "react";
 import {CheckBox, ICheckBoxProps} from "./index";
 import {BoxGroup} from "../basicBox/group";
+import {validateControlled} from "../validateControlled";
 
 type CheckBoxNode = React.ReactElement<
 ICheckBoxProps & Readonly<{ children?: ReactNode }>,
@@ -32,14 +33,12 @@ export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBo
 
     constructor(props: ICheckBoxGroupProps){
         super(props);
-        this._controlled = typeof props.values !== 'undefined';
+        this._controlled = 'values' in props;
         this.state = {
             values: props.defaultValues
         };
 
-        if(this._controlled && typeof props.onChange !== 'function'){
-            throw new Error('受控CheckBoxGroup组件必须传入onChange参数');
-        }
+        validateControlled(this, 'values');
     }
 
     toggleNameHandler(value: string){
@@ -57,13 +56,13 @@ export class CheckBoxGroup extends React.Component<ICheckBoxGroupProps, ICheckBo
         onChange && onChange(values);
     }
 
-    checkBoxPropsInit(props: ICheckBoxProps): ICheckBoxProps{
+    checkBoxPropsInit(itemProps: ICheckBoxProps): ICheckBoxProps{
         let disabled = this.props.disabled,
             values = this._controlled ? this.props.values : this.state.values,
-            value = props.value,
-            name = props.name;
+            value = itemProps.value,
+            name = itemProps.name;
         return {
-            disabled: typeof disabled === 'undefined' ? props.disabled : disabled,
+            disabled: typeof disabled === 'undefined' ? itemProps.disabled : disabled,
             checked: !!~values.indexOf(value),
             name: name,
             value: value,

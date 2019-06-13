@@ -3,6 +3,7 @@ import {ReactNode} from "react";
 import {JSXElementConstructor} from "react";
 import {IRadioProps, Radio} from "./index";
 import {BoxGroup} from "../basicBox/group";
+import {validateControlled} from "../validateControlled";
 
 type RadioNode = React.ReactElement<
 IRadioProps & Readonly<{ children?: ReactNode }>,
@@ -27,26 +28,24 @@ export class RadioGroup extends React.Component<IRadioGroupProps, IRadioGroupSta
     protected _controlled;
     constructor(props: IRadioGroupProps){
         super(props);
-        this._controlled = typeof props.value !== 'undefined';
+        this._controlled = 'value' in props;
         this.state = {
             value: props.defaultValue
         };
 
-        if(this._controlled && typeof props.onChange !== 'function'){
-            throw new Error('受控RadioGroup组件必须传入onChange参数');
-        }
+        validateControlled(this);
     }
 
-    radioPropsInit(props: IRadioProps): IRadioProps{
+    radioPropsInit(itemProps: IRadioProps): IRadioProps{
         let {
             disabled,
             name
         } = this.props;
         let groupValue = this._controlled ? this.props.value : this.state.value;
-        let value = props.value;
+        let value = itemProps.value;
 
         return {
-            disabled: typeof disabled !== 'undefined' ? disabled : props.disabled,
+            disabled: typeof disabled !== 'undefined' ? disabled : itemProps.disabled,
             name: name,
             value: value,
             checked: value === groupValue,

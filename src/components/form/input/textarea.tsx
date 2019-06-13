@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ReactResizeObserver} from "../../../utils/ReactResizeObserver";
 import {calculateNodeHeight} from "./calculateNodeHeight";
+import {validateControlled} from "../validateControlled";
 
 interface ITextareaProps {
     defaultValue?: string;
@@ -45,10 +46,12 @@ export class Textarea extends React.Component<ITextareaProps, ITextareaState>{
 
     constructor(props: ITextareaProps){
         super(props);
-        this._controlled = typeof props.value !== 'undefined';
+        this._controlled = 'value' in props;
         this.state = {
             value: props.defaultValue
         };
+
+        validateControlled(this);
     }
 
     resizeOnNextFrame(){
@@ -69,7 +72,7 @@ export class Textarea extends React.Component<ITextareaProps, ITextareaState>{
     }
 
     changeHandler(e: React.ChangeEvent<HTMLTextAreaElement>){
-        if (!('value' in this.props)) {
+        if (!this._controlled) {
             this.resizeTextarea();
         }
         this.setState({

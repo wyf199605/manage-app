@@ -79,7 +79,7 @@ class LoginPage extends React.Component<IStateProps & IDispatchProps & RouteComp
             {/*<Modal visible={true}>11</Modal>*/}
             <Button>11111</Button>
             <Input/>
-            <Input.Textarea autosize={{maxRows: 6, minRows: 2}}/>
+            <Input.Textarea autosize={{maxRows: 6, minRows: 2}} value={''}/>
         </div>;
     }
 }

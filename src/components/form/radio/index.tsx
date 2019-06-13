@@ -2,6 +2,7 @@ import * as React from "react";
 import "./style.scss";
 import {RadioGroup} from "./group";
 import {BasicBox} from "../basicBox";
+import {validateControlled} from "../validateControlled";
 
 export interface IRadioProps {
     name?: string;
@@ -28,10 +29,13 @@ export class Radio extends React.Component<IRadioProps, IRadioState>{
 
     constructor(props: IRadioProps){
         super(props);
-        this._controlled = typeof props.checked !== 'undefined';
+        let valueName = 'checked';
+        this._controlled = valueName in props;
         this.state = {
             checked: props.defaultChecked
         };
+
+        validateControlled(this, valueName);
     }
 
     checkedHandler(e: React.ChangeEvent<HTMLInputElement>){
