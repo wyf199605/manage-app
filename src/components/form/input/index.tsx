@@ -2,6 +2,7 @@ import * as React from "react";
 import "./style.scss";
 import {Textarea} from "./textarea";
 import {validateControlled} from "../validateControlled";
+import {IMenuItemProps} from "../../view/menu/item";
 
 
 export interface IInputProps {
